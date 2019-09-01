@@ -6,57 +6,16 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" d:DesignHeight="310" Width="810">
 
-    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" Loaded="Page_Loaded" d:DesignHeight="299" RequestedTheme="Dark" ScrollViewer.VerticalScrollBarVisibility="Disabled" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch" Width="770">
-
-    <Grid RequestedTheme="Default" >
-
-        <Button Content="Обновить" Margin="13,208,0,0" VerticalAlignment="Top" Click="Button_Click" Width="88"/>
-        <Button Content="Посчитать" Margin="13,254,0,0" VerticalAlignment="Top" Click="Button_Click2" Width="88"/>
-        <TextBox x:Name="pricebtc" HorizontalAlignment="Left" Margin="12,40,0,0" Text="10000" TextWrapping="Wrap" VerticalAlignment="Top" Width="80"/>
-        <TextBox x:Name="priceeth" HorizontalAlignment="Left" Margin="12,112,0,0" Text="300" TextWrapping="Wrap" VerticalAlignment="Top" Width="80"/>
-        <TextBox x:Name="pricebtcsell" HorizontalAlignment="Left" Margin="118,113,0,0" Text="0.00014333" TextWrapping="Wrap" VerticalAlignment="Top" Width="92"/>
-        <TextBox x:Name="priceethsell" HorizontalAlignment="Left" Margin="118,181,0,0" Text="0.009" TextWrapping="Wrap" VerticalAlignment="Top" Width="92"/>
-        <TextBox x:Name="priceusdsell" HorizontalAlignment="Left" Margin="118,251,0,0" Text="1.5" TextWrapping="Wrap" VerticalAlignment="Top" Width="92"/>
-        <TextBox x:Name="pricebtcbuy" HorizontalAlignment="Left" Margin="281,113,0,0" Text="0.00014111" TextWrapping="Wrap" VerticalAlignment="Top" Width="92"/>
-        <TextBox x:Name="priceethbuy" HorizontalAlignment="Left" Margin="281,181,0,0" Text="0.008" TextWrapping="Wrap" VerticalAlignment="Top" Width="92"/>
-        <TextBox x:Name="priceusdbuy" HorizontalAlignment="Left" Margin="281,251,0,0" Text="1.4" TextWrapping="Wrap" VerticalAlignment="Top" Width="92"/>
-        <TextBlock HorizontalAlignment="Left" Margin="13,19,0,0"   TextWrapping="Wrap" VerticalAlignment="Top" FontSize="12" Text="Цена в BTC"/>
-        <TextBlock HorizontalAlignment="Left" Margin="281,93,0,0"  TextWrapping="Wrap" VerticalAlignment="Top" FontSize="12" Text="Цена в BTC"/>
-        <TextBlock HorizontalAlignment="Left" Margin="13,91,0,0"   TextWrapping="Wrap" VerticalAlignment="Top" FontSize="12" Text="Цена в ETH"/>
-        <TextBlock HorizontalAlignment="Left" Margin="118,94,0,0"  TextWrapping="Wrap" VerticalAlignment="Top" FontSize="12" Text="Цена в BTC"/>
-        <TextBlock HorizontalAlignment="Left" Margin="118,160,0,0" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="12" Text="Цена в ETH"/>
-        <TextBlock HorizontalAlignment="Left" Margin="281,160,0,0" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="12" Text="Цена в ETH"/>
-        <TextBlock HorizontalAlignment="Left" Margin="118,230,0,0" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="12" Text="Цена в USD"/>
-        <TextBlock HorizontalAlignment="Left" Margin="281,230,0,0" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="12" Text="Цена в USD"/>
-        <TextBlock HorizontalAlignment="Left" Margin="213,40,0,0" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="16" FontWeight="Bold" Text="Livecoin"/>
-        <TextBlock x:Name="labelethusdbuy"  HorizontalAlignment="Left" Margin="378,188,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Text="1,45 USD"/>
-        <TextBlock x:Name="labelbtcusdbuy"  HorizontalAlignment="Left" Margin="378,119,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Text="1,45 USD"/>
-        <TextBlock x:Name="labelbtcusdsell" HorizontalAlignment="Left" Margin="215,120,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Text="1,55 USD" FontFamily="Segoe UI"/>
-        <TextBlock x:Name="labelethusdsell" HorizontalAlignment="Left" Margin="215,188,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Text="1,55 USD"/>
-        <TextBlock HorizontalAlignment="Left" Margin="124,67,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Text="Продажа" FontSize="16"/>
-        <TextBlock HorizontalAlignment="Left" Margin="290,67,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Text="Покупка" FontSize="16"/>
-        <TextBox x:Name="pricebtcsell_hitbtc" HorizontalAlignment="Left" Margin="445,113,0,0" Text="0.00014333" TextWrapping="Wrap" VerticalAlignment="Top" Width="92"/>
-        <TextBox x:Name="pricebtcbuy_hitbtc"  HorizontalAlignment="Left" Margin="604,113,0,0" Text="0.000141" TextWrapping="Wrap" VerticalAlignment="Top" Width="92"/>
-        <TextBlock HorizontalAlignment="Left" Margin="604,93,0,0" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="12" Text="Цена в BTC"/>
-        <TextBlock HorizontalAlignment="Left" Margin="445,94,0,0" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="12" Text="Цена в BTC"/>
-        <TextBlock HorizontalAlignment="Left" Margin="544,40,0,0" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="16" FontWeight="Bold" Text="HitBTC"/>
-        <TextBlock x:Name="labelbtcusdbuy_hitbtc"  HorizontalAlignment="Left" Margin="701,119,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Text="1,45 USD" FontFamily="Segoe UI"/>
-        <TextBlock x:Name="labelbtcusdsell_hitbtc" HorizontalAlignment="Left" Margin="542,119,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Text="1,55 USD"/>
-        <TextBlock HorizontalAlignment="Left" Margin="451,67,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Text="Продажа" FontSize="16"/>
-        <TextBlock HorizontalAlignment="Left" Margin="613,67,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Text="Покупка" FontSize="16"/>
-        <TextBox x:Name="pricebtcsell_yobit" HorizontalAlignment="Left" Margin="445,248,0,0" Text="0.000143" TextWrapping="Wrap" VerticalAlignment="Top" Width="92"/>
-        <TextBox x:Name="pricebtcbuy_yobit"  HorizontalAlignment="Left" Margin="604,248,0,0" Text="0.000141" TextWrapping="Wrap" VerticalAlignment="Top" Width="92"/>
-        <TextBlock HorizontalAlignment="Left" Margin="604,228,0,0" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="12" Text="Цена в BTC"/>
-        <TextBlock HorizontalAlignment="Left" Margin="445,229,0,0" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="12" Text="Цена в BTC"/>
-        <TextBlock HorizontalAlignment="Left" Margin="550,176,0,0" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="16" FontWeight="Bold" Text="YoBit"/>
-        <TextBlock x:Name="labelbtcusdbuy_yobit"  HorizontalAlignment="Left" Margin="701,254,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Text="1,45 USD"/>
-        <TextBlock x:Name="labelbtcusdsell_yobit" HorizontalAlignment="Left" Margin="542,254,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Text="1,55 USD"/>
-        <TextBlock HorizontalAlignment="Left" Margin="451,202,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Text="Продажа" FontSize="16"/>
-        <TextBlock HorizontalAlignment="Left" Margin="613,202,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Text="Покупка" FontSize="16"/>
-        <TextBlock HorizontalAlignment="Left" Margin="13,149,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="54" Width="92" FontSize="12"><Run Text="Время "/><LineBreak/><Run/><LineBreak/><Run Text="обновления"/></TextBlock>
-        <TextBox x:Name="timeload" HorizontalAlignment="Left" Margin="68,152,0,0" Text="30" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="10" Height="24" Width="24" Padding="3,1,6,6"/>
-        <TextBlock x:Name="margintext" HorizontalAlignment="Left" Margin="290,12,0,0" Text="%" TextWrapping="Wrap" VerticalAlignment="Top" Visibility="Visible"/>
+    <Grid>
+        <NavigationView x:Name="navMenu"  ItemInvoked="navMenu_ItemInvoked" Loaded="NavMenu_Loaded" IsBackButtonVisible="Collapsed"  IsSettingsVisible="True">
+            <NavigationView.MenuItems>
+                <NavigationViewItem Icon="Home" Content="Главная" Tag="HomePage"/>
+                <NavigationViewItem  Icon="Manage" Content="Портфель" Tag="PortfolioPage"/>
+            </NavigationView.MenuItems>
+            <Frame x:Name="contentFrame"/>
+        </NavigationView>
     </Grid>
 </Page>
 
