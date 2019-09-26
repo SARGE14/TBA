@@ -10,7 +10,7 @@
 
 
     <Grid RequestedTheme="Default">
-        
+
         <Button x:Name="updateButton" Content="Обновить" Margin="13,208,0,0" VerticalAlignment="Top" Click="UpdateButtonClick" Width="88" HorizontalAlignment="Left"/>
         <Button x:Name="calculateButton" Content="Посчитать" Margin="13,254,0,0" VerticalAlignment="Top" Click="CalculateButtonClick" Width="88"/>
         <TextBox x:Name="priceBtc" HorizontalAlignment="Left" Margin="12,40,0,0" Text="10000" TextWrapping="Wrap" VerticalAlignment="Top" Width="80"/>
@@ -57,7 +57,7 @@
         <TextBlock HorizontalAlignment="Left" Margin="13,149,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="54" Width="92" FontSize="12"><Run Text="Время "/><LineBreak/><Run/><LineBreak/><Run Text="обновления"/></TextBlock>
         <TextBox x:Name="timeUpdate" HorizontalAlignment="Left" Margin="68,152,0,0" Text="30" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="10" Height="24" Width="24" Padding="3,1,6,6"/>
         <TextBlock x:Name="messageText" HorizontalAlignment="Left" Margin="290,12,0,0" Text="Маржа между биржами" TextWrapping="Wrap" VerticalAlignment="Top" Visibility="Visible"/>
-        <CheckBox x:Name="toastCheck" Content="Отключить уведомления" Margin="675,0,0,0" VerticalAlignment="Top" Width="94" FontSize="10" Height="28"/>
-        <TextBlock x:Name="errorText" HorizontalAlignment="Left" Margin="515,286,0,0" Text="Error" TextWrapping="Wrap" VerticalAlignment="Top"/>
+        <CheckBox x:Name="toastCheck" Content="Отключить уведомления" Margin="675,0,0,0" VerticalAlignment="Top" Width="95" FontSize="10" Height="28" AutomationProperties.HelpText=""/>
+        <TextBlock x:Name="errorText" HorizontalAlignment="Right" Margin="0,291,5,0" Text="Error" TextWrapping="Wrap" VerticalAlignment="Top"/>
     </Grid>
 </Page>

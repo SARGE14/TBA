@@ -16,23 +16,11 @@ using Windows.UI.ViewManagement;
 using System.Net;
 using System.Web;
 using Newtonsoft.Json;
-using System.Threading;
-
-
-using System.Diagnostics;
-
-using System.Windows;
-
 using Windows.UI.Notifications;
 using Windows.Data.Xml.Dom;
 
-// Документацию по шаблону элемента "Пустая страница" см. по адресу https://go.microsoft.com/fwlink/?LinkId=234238
-
 namespace TBA
 {
-    /// <summary>
-    /// Пустая страница, которую можно использовать саму по себе или для перехода внутри фрейма.
-    /// </summary>
     public sealed partial class HomePage : Page
     {
         readonly WebClient webClient;
@@ -49,7 +37,6 @@ namespace TBA
         public double newPrice;
         public double percentUpDown = 1.05;
         public int timerload = 30;
-        //  private const String APP_ID = "Trade Bot";
         public string toastMesLine1;
         public string toastMesLine2;
         RootObject json;
@@ -87,17 +74,17 @@ namespace TBA
         {
             this.InitializeComponent();
             webClient = new WebClient();
-            errorText.Text = "";
+            messageText.Text = "";
             firstUpDown = true;
-
+            errorText.Text = "Соединение...";
             // ApplicationView.PreferredLaunchViewSize = new Size { Height = 300, Width = 770 };
             // ApplicationView.PreferredLaunchWindowingMode = ApplicationViewWindowingMode.PreferredLaunchViewSize;
-            
         }
         private void Page_Loaded(object sender, RoutedEventArgs e)
         {
             PriceGet();
             AdventureTimer().Start();
+            errorText.Text = "";
         }
         public DispatcherTimer AdventureTimer()
         {
@@ -118,14 +105,18 @@ namespace TBA
                     if (exchange == "Livecoin")
                     {
                         errorLivecoin = false;
+                        errorText.Text = "";
                     }
                     if (exchange == "HitBTC")
                     {
                         errorHitBtc = false;
+                        errorText.Text = "";
+
                     }
                     if (exchange == "YoBit")
                     {
                         errorYobit = false;
+                        errorText.Text = "";
                     }
                     json = null;
                     json = JsonConvert.DeserializeObject<RootObject>(webPage);
@@ -302,9 +293,9 @@ namespace TBA
                 if (percentUpDown < calcPriceUp)
                 {
                     calcPriceUp = (calcPriceUp - 1d) * 100d;
-                    messageText.Text = "Цена " + priceBidAsk + " " + currencyPair + " вверх на " + calcPriceUp.ToString("F") + "%";
-                    toastMesLine1 = "Старая цена на " + exchange + ": " + oldPrice;
-                    toastMesLine2 = "Новая цена на " + exchange + ": " + newPrice;
+                    messageText.Text = "Цена " + priceBidAsk + " " + currencyPair + " на " + exchange + " вверх на " + calcPriceUp.ToString("F") + "%";
+                    toastMesLine1 = "Старая цена на " + exchange + ": " + oldPrice.ToString("F8");
+                    toastMesLine2 = "Новая цена на  " + exchange + ": " + newPrice.ToString("F8");
                     imageName = "Resources/greenup.png";
                     ToastPrice();
                     /// цена вверх
@@ -313,9 +304,9 @@ namespace TBA
                 {
                     /// цена вниз
                     calcPriceDown = (calcPriceDown - 1d) * 100d;
-                    messageText.Text = "Цена " + priceBidAsk + " " + currencyPair + " вниз на " + calcPriceDown.ToString("F") + "%";
-                    toastMesLine1 = "Старая цена на " + exchange + ": " + oldPrice;
-                    toastMesLine2 = "Новая цена на " + exchange + ": " + newPrice;
+                    messageText.Text = "Цена " + priceBidAsk + " " + currencyPair + " на " + exchange + " вниз на " + calcPriceDown.ToString("F") + "%";
+                    toastMesLine1 = "Старая цена на " + exchange + ": " + oldPrice.ToString("F8");
+                    toastMesLine2 = "Новая цена на  " + exchange + ": " + newPrice.ToString("F8");
                     imageName = "Resources/reddown.png";
                     ToastPrice();
                 }
@@ -430,7 +421,5 @@ namespace TBA
             PriceCount();
             PriceAlert();
         }
-
-       
     }
 }
