@@ -6,10 +6,9 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"
-    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" d:DesignHeight="310" Width="810">
-
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" d:DesignHeight="340" Width="1110">
     <Grid>
-        <NavigationView x:Name="navMenu"  ItemInvoked="navMenu_ItemInvoked" Loaded="NavMenu_Loaded" IsBackButtonVisible="Collapsed"  IsSettingsVisible="True">
+        <NavigationView x:Name="navMenu"  ItemInvoked="navMenu_ItemInvoked" Loaded="NavMenu_Loaded" IsBackButtonVisible="Collapsed"  IsSettingsVisible="True" Margin="0,0,150,0">
             <NavigationView.MenuItems>
                 <NavigationViewItem Icon="Home" Content="Главная" Tag="HomePage"/>
                 <NavigationViewItem  Icon="Manage" Content="Портфель" Tag="PortfolioPage"/>
