@@ -77,6 +77,7 @@ namespace TBA
             messageText.Text = "";
             firstUpDown = true;
             errorText.Text = "Соединение...";
+            
             // ApplicationView.PreferredLaunchViewSize = new Size { Height = 300, Width = 770 };
             // ApplicationView.PreferredLaunchWindowingMode = ApplicationViewWindowingMode.PreferredLaunchViewSize;
         }
@@ -90,7 +91,6 @@ namespace TBA
         {
             DispatcherTimer timer = new DispatcherTimer { Interval = new TimeSpan(0, 0, timerload) };
             timer.Tick += new EventHandler<object>(TimerTick);
-
             return timer;
         }
         private void WebTest()
@@ -111,7 +111,6 @@ namespace TBA
                     {
                         errorHitBtc = false;
                         errorText.Text = "";
-
                     }
                     if (exchange == "YoBit")
                     {
@@ -234,10 +233,26 @@ namespace TBA
                 newPrice = json.best_bid;
                 PriceUpDown();
                 priceUsdBuy.Text = newPrice.ToString("F");
+
+                currencyPair = "EMC/BTC";
+                url = urlExchange + currencyPair;
+                WebTest();
+
+                priceBidAsk = "продажи";
+                oldPrice = double.Parse(priceBtcSell_Emc.Text);
+                newPrice = json.best_ask;
+                PriceUpDown();
+                priceBtcSell_Emc.Text = newPrice.ToString("F8");
+
+                priceBidAsk = "покупки";
+                oldPrice = double.Parse(priceBtcBuy_Emc.Text);
+                newPrice = json.best_bid;
+                PriceUpDown();
+                priceBtcBuy_Emc.Text = newPrice.ToString("F8");
             }
             /*HitBTC*/
             exchange = "HitBTC";
-            urlExchange = "https://api.hitbtc.com/api/2/public/ticker/";
+             urlExchange = "https://api.hitbtc.com/api/2/public/ticker/";
            
             if (errorHitBtc != true)
             {
@@ -256,6 +271,22 @@ namespace TBA
                 newPrice = json.bid;
                 PriceUpDown();
                 priceBtcBuy_hitbtc.Text = newPrice.ToString("F8");
+
+                currencyPair = "EMCBTC";
+                url = urlExchange + currencyPair;
+                WebTest();
+
+                priceBidAsk = "продажи";
+                oldPrice = double.Parse(priceBtcSell_hitbtc_Emc.Text);
+                newPrice = json.ask;
+                PriceUpDown();
+                priceBtcSell_hitbtc_Emc.Text = newPrice.ToString("F8");
+
+                priceBidAsk = "покупки";
+                oldPrice = double.Parse(priceBtcBuy_hitbtc_Emc.Text);
+                newPrice = json.bid;
+                PriceUpDown();
+                priceBtcBuy_hitbtc_Emc.Text = newPrice.ToString("F8");
             }
 
             /*YoBit*/
@@ -288,7 +319,6 @@ namespace TBA
                 newPrice = json.ticker.Sell;
                 PriceUpDown();
                 priceEthSell_yobit.Text = newPrice.ToString("F8");
-                
 
                 priceBidAsk = "покупки";
                 oldPrice = double.Parse(priceEthBuy_yobit.Text);
@@ -366,30 +396,30 @@ namespace TBA
         }
         private void PriceCount()
         {
+            double result;
             /*Livecoin*/
-            double pbs = double.Parse(priceBtcSell.Text) * double.Parse(priceBtc.Text);
-            labelBtcUsdSell.Text = pbs.ToString("F") + " USD";
-            double pes = double.Parse(priceEthSell.Text) * double.Parse(priceEth.Text);
-            labelEthUsdSell.Text = pes.ToString("F") + " USD";
-            double pbb = double.Parse(priceBtcBuy.Text) * double.Parse(priceBtc.Text);
-            labelBtcUsdBuy.Text = pbb.ToString("F") + " USD";
-            double peb = double.Parse(priceEthBuy.Text) * double.Parse(priceEth.Text);
-            labelEthUsdBuy.Text = peb.ToString("F") + " USD";
+            result = double.Parse(priceBtcSell.Text) * double.Parse(priceBtc.Text);
+            labelBtcUsdSell.Text = result.ToString("F") + " USD";
+            result = double.Parse(priceEthSell.Text) * double.Parse(priceEth.Text);
+            labelEthUsdSell.Text = result.ToString("F") + " USD";
+            result = double.Parse(priceBtcBuy.Text) * double.Parse(priceBtc.Text);
+            labelBtcUsdBuy.Text = result.ToString("F") + " USD";
+            result = double.Parse(priceEthBuy.Text) * double.Parse(priceEth.Text);
+            labelEthUsdBuy.Text = result.ToString("F") + " USD";
             /*HitBTC*/
-            double pbbhit = double.Parse(priceBtcBuy_hitbtc.Text) * double.Parse(priceBtc.Text);
-            labelBtcUsdBuy_hitbtc.Text = pbbhit.ToString("F") + " USD";
-            double pbshit = double.Parse(priceBtcSell_hitbtc.Text) * double.Parse(priceBtc.Text);
-            labelBtcUsdSell_hitbtc.Text = pbshit.ToString("F") + " USD";
+            result = double.Parse(priceBtcBuy_hitbtc.Text) * double.Parse(priceBtc.Text);
+            labelBtcUsdBuy_hitbtc.Text = result.ToString("F") + " USD";
+            result = double.Parse(priceBtcSell_hitbtc.Text) * double.Parse(priceBtc.Text);
+            labelBtcUsdSell_hitbtc.Text = result.ToString("F") + " USD";
             /*YoBit*/
-            double pbbyob = double.Parse(priceBtcBuy_yobit.Text) * double.Parse(priceBtc.Text);
-            labelBtcUsdBuy_yobit.Text = pbbyob.ToString("F") + " USD";
-            double pbsyob = double.Parse(priceBtcSell_yobit.Text) * double.Parse(priceBtc.Text);
-            labelBtcUsdSell_yobit.Text = pbsyob.ToString("F") + " USD";
-
-            double pebyob = double.Parse(priceEthBuy_yobit.Text) * double.Parse(priceEth.Text);
-            labelEthUsdBuy_yobit.Text = pebyob.ToString("F") + " USD";
-            double pesyob = double.Parse(priceEthSell_yobit.Text) * double.Parse(priceEth.Text);
-            labelEthUsdSell_yobit.Text = pesyob.ToString("F") + " USD";
+            result = double.Parse(priceBtcBuy_yobit.Text) * double.Parse(priceBtc.Text);
+            labelBtcUsdBuy_yobit.Text = result.ToString("F") + " USD";
+            result = double.Parse(priceBtcSell_yobit.Text) * double.Parse(priceBtc.Text);
+            labelBtcUsdSell_yobit.Text = result.ToString("F") + " USD";
+            result = double.Parse(priceEthBuy_yobit.Text) * double.Parse(priceEth.Text);
+            labelEthUsdBuy_yobit.Text = result.ToString("F") + " USD";
+            result = double.Parse(priceEthSell_yobit.Text) * double.Parse(priceEth.Text);
+            labelEthUsdSell_yobit.Text = result.ToString("F") + " USD";
         }
         private void PriceAlert()
         {
