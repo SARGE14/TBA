@@ -25,6 +25,7 @@ namespace TBA
     {
         readonly WebClient webClient;
         public string url;
+        public string coin;
         public string exchange;
         public string imageName;
         public string currencyPair;
@@ -39,6 +40,10 @@ namespace TBA
         public int timerload = 15;
         public string toastMesLine1;
         public string toastMesLine2;
+        public double priceAlertBuyLive;
+        public double priceAlertSellHit;
+        public double priceAlertSellLive;
+        public double priceAlertBuyHit;
         RootObject json;
         public class RootObject
         {
@@ -423,19 +428,35 @@ namespace TBA
         }
         private void PriceAlert()
         {
-            double priceAlertBuyLive = double.Parse(priceBtcBuy.Text);
-            double priceAlertSellHit = double.Parse(priceBtcSell_hitbtc.Text);
-            double priceAlertSellLive = double.Parse(priceBtcSell.Text);
-            double priceAlertBuyHit = double.Parse(priceBtcBuy_hitbtc.Text);
+            coin = "PLBT";
+            priceAlertBuyLive = double.Parse(priceBtcBuy.Text);
+            priceAlertSellHit = double.Parse(priceBtcSell_hitbtc.Text);
+            priceAlertSellLive = double.Parse(priceBtcSell.Text);
+            priceAlertBuyHit = double.Parse(priceBtcBuy_hitbtc.Text);
+            PriceAlerts();
+            coin = "EMC";
+            priceAlertBuyLive = double.Parse(priceBtcBuy_Emc.Text);
+            priceAlertSellHit = double.Parse(priceBtcSell_hitbtc_Emc.Text);
+            priceAlertSellLive = double.Parse(priceBtcSell_Emc.Text);
+            priceAlertBuyHit = double.Parse(priceBtcBuy_hitbtc_Emc.Text);
+            if (toastCheck_EMC.IsChecked == false)
+            PriceAlerts();
+        }
+        private void PriceAlerts()
+        {
             if (priceAlertBuyLive > priceAlertSellHit)
             {
                 double result = (priceAlertBuyLive / priceAlertSellHit - 1d) * 100d;
-                messageText.Text = "На HitBTC дешевле на " + result.ToString("F") + "%";
-                toastMesLine1 = "На HitBTC цена продажи " + priceBtcSell_hitbtc.Text;
-                toastMesLine2 = "На Livecoin цена покупки " + priceBtcBuy.Text;
+                messageText.Text = coin + " на HitBTC дешевле на " + result.ToString("F") + "%";
+                toastMesLine1 = "На HitBTC цена продажи " + priceAlertSellHit.ToString("F8");
+                toastMesLine2 = "На Livecoin цена покупки " + priceAlertBuyLive.ToString("F8");
                 if (toastCheck.IsChecked == true && result > 3d)
                 {
                     toastCheck.IsChecked = false;
+                }
+                if (toastCheck_EMC.IsChecked == true && result > 10d)
+                {
+                    toastCheck_EMC.IsChecked = false;
                 }
                 imageName = "Resources/hitbtc.png";
                 ToastPrice();
@@ -443,12 +464,16 @@ namespace TBA
             if (priceAlertBuyHit > priceAlertSellLive)
             {
                 double result = (priceAlertBuyHit / priceAlertSellLive - 1d) * 100d;
-                messageText.Text = "На Livecoin дешевле на " + result.ToString("F") + "%";
-                toastMesLine1 = "На Livecoin цена продажи " + priceBtcSell.Text;
-                toastMesLine2 = "На HitBTC цена покупки " + priceBtcBuy_hitbtc.Text;
+                messageText.Text = coin + " на Livecoin дешевле на " + result.ToString("F") + "%";
+                toastMesLine1 = "На Livecoin цена продажи " + priceAlertSellLive.ToString("F8");
+                toastMesLine2 = "На HitBTC цена покупки " + priceAlertBuyHit.ToString("F8");
                 if (toastCheck.IsChecked == true && result > 3d)
                 {
                     toastCheck.IsChecked = false;
+                }
+                if (toastCheck_EMC.IsChecked == true && result > 10d)
+                {
+                    toastCheck_EMC.IsChecked = false;
                 }
                 imageName = "Resources/livecoin.png";
                 ToastPrice();
