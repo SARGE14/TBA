@@ -30,9 +30,7 @@ namespace TBA
         public string imageName;
         public string currencyPair;
         public string priceBidAsk;
-        public bool errorLivecoin;
-        public bool errorHitBtc;
-        public bool errorYobit;
+        public string errorExh;
         public bool firstUpDown;
         public double oldPrice;
         public double newPrice;
@@ -107,44 +105,25 @@ namespace TBA
                 try
                 {
                     webPage = wc.DownloadString(@url);
-                    if (exchange == "Livecoin")
-                    {
-                        errorLivecoin = false;
+                  
+                        errorExh = "";
                         errorText.Text = "";
-                    }
-                    if (exchange == "HitBTC")
+                        json = null;
+                    try
                     {
-                        errorHitBtc = false;
-                        errorText.Text = "";
+                        json = JsonConvert.DeserializeObject<RootObject>(webPage);
                     }
-                    if (exchange == "YoBit")
+                    catch
                     {
-                        errorYobit = false;
-                        errorText.Text = "";
+                        errorText.Text = "API "+ exchange + " недоступно";
+                        url = null;
+                        json = null;
                     }
-                    json = null;
-                    json = JsonConvert.DeserializeObject<RootObject>(webPage);
-
-
                 }
                 catch (WebException)
                 {
-                    if (exchange == "Livecoin")
-                    {
-                        errorLivecoin = true;
-                        errorText.Text = "API Livecoin недоступно";
-                    }
-                    if (exchange == "HitBTC")
-                    {
-                        errorHitBtc = true;
-                        errorText.Text = "API HitBTC недоступно";
-                    }
-                    if (exchange == "YoBit")
-                    {
-                        errorYobit = true;
-                        errorText.Text = "API YoBit недоступно";
-                    }
-
+                    errorExh = exchange;
+                    errorText.Text = "API " + exchange + " недоступно";
                     url = null;
                 }
             }
@@ -163,13 +142,15 @@ namespace TBA
         }
         private void PriceGet()
         {
-
             string urlExchange;
             messageText.Text = "";
             /*Livecoin*/
             exchange = "Livecoin";
             urlExchange = "https://api.livecoin.net/exchange/ticker?currencyPair=";
-            if (errorLivecoin != true)
+            currencyPair = "BTC/USD";
+            url = urlExchange + currencyPair;
+            WebTest();
+            if (errorExh != "Livecoin" && json != null)
             {
                 currencyPair = "BTC/USD";
                 url = urlExchange + currencyPair;
@@ -257,14 +238,12 @@ namespace TBA
             }
             /*HitBTC*/
             exchange = "HitBTC";
-             urlExchange = "https://api.hitbtc.com/api/2/public/ticker/";
-           
-            if (errorHitBtc != true)
+            urlExchange = "https://api.hitbtc.com/api/2/public/ticker/";
+            currencyPair = "PLBTBTC";
+            url = urlExchange + currencyPair;
+            WebTest();
+            if (errorExh != "HitBTC" && json != null)
             {
-                currencyPair = "PLBTBTC";
-                url = urlExchange + currencyPair;
-                WebTest();
-
                 priceBidAsk = "продажи";
                 oldPrice = double.Parse(priceBtcSell_hitbtc.Text);
                 newPrice = json.ask;
@@ -277,6 +256,25 @@ namespace TBA
                 PriceUpDown();
                 priceBtcBuy_hitbtc.Text = newPrice.ToString("F8");
 
+                /*HitBTC ETH*/
+                currencyPair = "PLBTETH";
+                url = urlExchange + currencyPair;
+                WebTest();
+
+                priceBidAsk = "продажи";
+               // currencyPair = "PLBT/ETH";
+                oldPrice = double.Parse(priceEthSell_hitbtc.Text);
+                newPrice = json.ask;
+                PriceUpDown();
+                priceEthSell_hitbtc.Text = newPrice.ToString("F8");
+
+                priceBidAsk = "покупки";
+                oldPrice = double.Parse(priceEthBuy_hitbtc.Text);
+                newPrice = json.bid;
+                PriceUpDown();
+                priceEthBuy_hitbtc.Text = newPrice.ToString("F8");
+
+                /*HitBTC EMC*/
                 currencyPair = "EMCBTC";
                 url = urlExchange + currencyPair;
                 WebTest();
@@ -297,15 +295,16 @@ namespace TBA
             /*YoBit*/
             exchange = "YoBit";
             urlExchange = "https://yobit.net/api/2/";
-            if (errorYobit != true)
+            currencyPair = "plbt_btc/ticker";
+            url = urlExchange + currencyPair;
+            WebTest();
+            if (errorExh != "YoBit" && json != null)
             {
-                currencyPair = "plbt_btc/ticker";
-                url = urlExchange + currencyPair;
-                WebTest();
                 oldPrice = double.Parse(priceBtcSell_yobit.Text);
                 newPrice = json.ticker.Sell;
 
                 priceBidAsk = "продажи";
+                currencyPair = "PLBT/BTC";
                 PriceUpDown();
                 priceBtcSell_yobit.Text = newPrice.ToString("F8");
                 oldPrice = double.Parse(priceBtcBuy_yobit.Text);
@@ -314,12 +313,13 @@ namespace TBA
                 priceBidAsk = "покупки";
                 PriceUpDown();
                 priceBtcBuy_yobit.Text = newPrice.ToString("F8");
-
+                
                 currencyPair = "plbt_eth/ticker";
                 url = urlExchange + currencyPair;
                 WebTest();
 
                 priceBidAsk = "продажи";
+                currencyPair = "PLBT/ETH";
                 oldPrice = double.Parse(priceEthSell_yobit.Text);
                 newPrice = json.ticker.Sell;
                 PriceUpDown();
@@ -336,6 +336,7 @@ namespace TBA
                 WebTest();
 
                 priceBidAsk = "продажи";
+                currencyPair = "PLBT/USD";
                 oldPrice = double.Parse(priceUsdSell_yobit.Text);
                 newPrice = json.ticker.Sell;
                 PriceUpDown();
@@ -353,6 +354,7 @@ namespace TBA
                 WebTest();
 
                 priceBidAsk = "продажи";
+                currencyPair = "PLBT/RUR";
                 oldPrice = double.Parse(priceRurSell_yobit.Text);
                 newPrice = json.ticker.Sell;
                 PriceUpDown();
@@ -379,13 +381,13 @@ namespace TBA
             {
                 if (percentUpDown < calcPriceUp)
                 {
+                    /// цена вверх
                     calcPriceUp = (calcPriceUp - 1d) * 100d;
                     messageText.Text = "Цена " + priceBidAsk + " " + currencyPair + " на " + exchange + " вверх на " + calcPriceUp.ToString("F") + "%";
                     toastMesLine1 = "Старая цена на " + exchange + ": " + oldPrice.ToString("F8");
                     toastMesLine2 = "Новая цена на  " + exchange + ": " + newPrice.ToString("F8");
                     imageName = "Resources/greenup.png";
                     ToastPrice();
-                    /// цена вверх
                 }
                 if (percentUpDown < calcPriceDown)
                 {
@@ -416,6 +418,10 @@ namespace TBA
             labelBtcUsdBuy_hitbtc.Text = result.ToString("F") + " USD";
             result = double.Parse(priceBtcSell_hitbtc.Text) * double.Parse(priceBtc.Text);
             labelBtcUsdSell_hitbtc.Text = result.ToString("F") + " USD";
+            result = double.Parse(priceEthBuy_hitbtc.Text) * double.Parse(priceEth.Text);
+            labelEthUsdBuy_hitbtc.Text = result.ToString("F") + " USD";
+            result = double.Parse(priceEthSell_hitbtc.Text) * double.Parse(priceEth.Text);
+            labelEthUsdSell_hitbtc.Text = result.ToString("F") + " USD";
             /*YoBit*/
             result = double.Parse(priceBtcBuy_yobit.Text) * double.Parse(priceBtc.Text);
             labelBtcUsdBuy_yobit.Text = result.ToString("F") + " USD";
