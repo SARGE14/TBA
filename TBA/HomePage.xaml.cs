@@ -31,17 +31,18 @@ namespace TBA
         public string currencyPair;
         public string priceBidAsk;
         public string errorExh;
+        public string alertPair;
         public bool firstUpDown;
         public double oldPrice;
         public double newPrice;
-        public double percentUpDown = 1.05;
+        public double percentUpDown = 1.05f;
         public int timerload = 15;
         public string toastMesLine1;
         public string toastMesLine2;
-        public double priceAlertBuyLive;
-        public double priceAlertSellHit;
-        public double priceAlertSellLive;
-        public double priceAlertBuyHit;
+        public float priceAlertBuyLive;
+        public float priceAlertSellHit;
+        public float priceAlertSellLive;
+        public float priceAlertBuyHit;
         RootObject json;
         public class RootObject
         {
@@ -136,7 +137,7 @@ namespace TBA
         private void PriceOldGet()
         {
             AdventureTimer().Stop();
-            timerload = Convert.ToInt32(timeUpdate.Text);
+            timerload = int.Parse(timeUpdate.Text);
             AdventureTimer().Start();
 
         }
@@ -176,6 +177,7 @@ namespace TBA
                 WebTest();
                 
                 priceBidAsk = "продажи";
+                alertPair = currencyPair;
                 oldPrice = double.Parse(priceBtcSell.Text);
                 newPrice = json.best_ask;
                 PriceUpDown();
@@ -192,6 +194,7 @@ namespace TBA
                 WebTest();
 
                 priceBidAsk = "продажи";
+                alertPair = currencyPair;
                 oldPrice = double.Parse(priceEthSell.Text);
                 newPrice = json.best_ask;
                 PriceUpDown();
@@ -208,6 +211,7 @@ namespace TBA
                 WebTest();
 
                 priceBidAsk = "продажи";
+                alertPair = currencyPair;
                 oldPrice = double.Parse(priceUsdSell.Text);
                 newPrice = json.best_ask;
                 PriceUpDown();
@@ -225,6 +229,7 @@ namespace TBA
                 WebTest();
 
                 priceBidAsk = "продажи";
+                alertPair = currencyPair;
                 oldPrice = double.Parse(priceBtcSell_Emc.Text);
                 newPrice = json.best_ask;
                 PriceUpDown();
@@ -244,6 +249,7 @@ namespace TBA
             WebTest();
             if (errorExh != "HitBTC" && json != null)
             {
+                alertPair = "PLBT/BTC";
                 priceBidAsk = "продажи";
                 oldPrice = double.Parse(priceBtcSell_hitbtc.Text);
                 newPrice = json.ask;
@@ -261,8 +267,8 @@ namespace TBA
                 url = urlExchange + currencyPair;
                 WebTest();
 
+                alertPair = "PLBT/ETH";
                 priceBidAsk = "продажи";
-               // currencyPair = "PLBT/ETH";
                 oldPrice = double.Parse(priceEthSell_hitbtc.Text);
                 newPrice = json.ask;
                 PriceUpDown();
@@ -280,6 +286,7 @@ namespace TBA
                 WebTest();
 
                 priceBidAsk = "продажи";
+                alertPair = "EMC/BTC";
                 oldPrice = double.Parse(priceBtcSell_hitbtc_Emc.Text);
                 newPrice = json.ask;
                 PriceUpDown();
@@ -303,8 +310,8 @@ namespace TBA
                 oldPrice = double.Parse(priceBtcSell_yobit.Text);
                 newPrice = json.ticker.Sell;
 
+                alertPair = "PLBT/BTC";
                 priceBidAsk = "продажи";
-                currencyPair = "PLBT/BTC";
                 PriceUpDown();
                 priceBtcSell_yobit.Text = newPrice.ToString("F8");
                 oldPrice = double.Parse(priceBtcBuy_yobit.Text);
@@ -318,8 +325,8 @@ namespace TBA
                 url = urlExchange + currencyPair;
                 WebTest();
 
+                alertPair = "PLBT/ETH";
                 priceBidAsk = "продажи";
-                currencyPair = "PLBT/ETH";
                 oldPrice = double.Parse(priceEthSell_yobit.Text);
                 newPrice = json.ticker.Sell;
                 PriceUpDown();
@@ -335,8 +342,8 @@ namespace TBA
                 url = urlExchange + currencyPair;
                 WebTest();
 
+                alertPair = "PLBT/USD";
                 priceBidAsk = "продажи";
-                currencyPair = "PLBT/USD";
                 oldPrice = double.Parse(priceUsdSell_yobit.Text);
                 newPrice = json.ticker.Sell;
                 PriceUpDown();
@@ -353,8 +360,8 @@ namespace TBA
                 url = urlExchange + currencyPair;
                 WebTest();
 
+                                alertPair = "PLBT/RUR";
                 priceBidAsk = "продажи";
-                currencyPair = "PLBT/RUR";
                 oldPrice = double.Parse(priceRurSell_yobit.Text);
                 newPrice = json.ticker.Sell;
                 PriceUpDown();
@@ -382,8 +389,8 @@ namespace TBA
                 if (percentUpDown < calcPriceUp)
                 {
                     /// цена вверх
-                    calcPriceUp = (calcPriceUp - 1d) * 100d;
-                    messageText.Text = "Цена " + priceBidAsk + " " + currencyPair + " на " + exchange + " вверх на " + calcPriceUp.ToString("F") + "%";
+                    calcPriceUp = (calcPriceUp - 1f) * 100f;
+                    messageText.Text = "Цена " + priceBidAsk + " " + alertPair + " на " + exchange + " вверх на " + calcPriceUp.ToString("F") + "%";
                     toastMesLine1 = "Старая цена на " + exchange + ": " + oldPrice.ToString("F8");
                     toastMesLine2 = "Новая цена на  " + exchange + ": " + newPrice.ToString("F8");
                     imageName = "Resources/greenup.png";
@@ -392,8 +399,8 @@ namespace TBA
                 if (percentUpDown < calcPriceDown)
                 {
                     /// цена вниз
-                    calcPriceDown = (calcPriceDown - 1d) * 100d;
-                    messageText.Text = "Цена " + priceBidAsk + " " + currencyPair + " на " + exchange + " вниз на " + calcPriceDown.ToString("F") + "%";
+                    calcPriceDown = (calcPriceDown - 1f) * 100f;
+                    messageText.Text = "Цена " + priceBidAsk + " " + alertPair + " на " + exchange + " вниз на " + calcPriceDown.ToString("F") + "%";
                     toastMesLine1 = "Старая цена на " + exchange + ": " + oldPrice.ToString("F8");
                     toastMesLine2 = "Новая цена на  " + exchange + ": " + newPrice.ToString("F8");
                     imageName = "Resources/reddown.png";
@@ -434,98 +441,108 @@ namespace TBA
         }
         private void PriceAlert()
         {
+            float result;
             coin = "PLBT";
-            priceAlertBuyLive = double.Parse(priceBtcBuy.Text);
-            priceAlertSellHit = double.Parse(priceBtcSell_hitbtc.Text);
-            priceAlertSellLive = double.Parse(priceBtcSell.Text);
-            priceAlertBuyHit = double.Parse(priceBtcBuy_hitbtc.Text);
-            PriceAlerts();
-            coin = "EMC";
-            priceAlertBuyLive = double.Parse(priceBtcBuy_Emc.Text);
-            priceAlertSellHit = double.Parse(priceBtcSell_hitbtc_Emc.Text);
-            priceAlertSellLive = double.Parse(priceBtcSell_Emc.Text);
-            priceAlertBuyHit = double.Parse(priceBtcBuy_hitbtc_Emc.Text);
-            if (toastCheck_EMC.IsChecked == false)
-            PriceAlerts();
-        }
-        private void PriceAlerts()
-        {
+            priceAlertBuyLive = float.Parse(priceBtcBuy.Text);
+            priceAlertSellLive = float.Parse(priceBtcSell.Text);
+            priceAlertBuyHit = float.Parse(priceBtcBuy_hitbtc.Text);
+            priceAlertSellHit = float.Parse(priceBtcSell_hitbtc.Text);
+
             if (priceAlertBuyLive > priceAlertSellHit)
             {
-                double result = (priceAlertBuyLive / priceAlertSellHit - 1d) * 100d;
-                messageText.Text = coin + " на HitBTC дешевле на " + result.ToString("F") + "%";
-                toastMesLine1 = "На HitBTC цена продажи " + priceAlertSellHit.ToString("F8");
-                toastMesLine2 = "На Livecoin цена покупки " + priceAlertBuyLive.ToString("F8");
-                if (toastCheck.IsChecked == true && result > 3d)
-                {
+                result = (priceAlertBuyLive / priceAlertSellHit - 1f) * 100f;
+                if (toastCheck.IsChecked == true && result > 3f)
                     toastCheck.IsChecked = false;
-                }
-                if (toastCheck_EMC.IsChecked == true && result > 10d)
-                {
-                    toastCheck_EMC.IsChecked = false;
-                }
-                imageName = "Resources/hitbtc.png";
-                ToastPrice();
+                if (toastCheck.IsChecked == false)
+                    PriceAlertsHit(result);
             }
             if (priceAlertBuyHit > priceAlertSellLive)
             {
-                double result = (priceAlertBuyHit / priceAlertSellLive - 1d) * 100d;
-                messageText.Text = coin + " на Livecoin дешевле на " + result.ToString("F") + "%";
-                toastMesLine1 = "На Livecoin цена продажи " + priceAlertSellLive.ToString("F8");
-                toastMesLine2 = "На HitBTC цена покупки " + priceAlertBuyHit.ToString("F8");
-                if (toastCheck.IsChecked == true && result > 3d)
-                {
+                result = (priceAlertBuyHit / priceAlertSellLive - 1f) * 100f;
+                if (toastCheck.IsChecked == true && result > 3f)
                     toastCheck.IsChecked = false;
-                }
-                if (toastCheck_EMC.IsChecked == true && result > 10d)
-                {
-                    toastCheck_EMC.IsChecked = false;
-                }
-                imageName = "Resources/livecoin.png";
-                ToastPrice();
+                if (toastCheck.IsChecked == false)
+                    PriceAlertsLive(result);
             }
+
+            coin = "EMC";
+            priceAlertBuyLive = float.Parse(priceBtcBuy_Emc.Text);
+            priceAlertSellLive = float.Parse(priceBtcSell_Emc.Text);
+            priceAlertBuyHit = float.Parse(priceBtcBuy_hitbtc_Emc.Text);
+            priceAlertSellHit = float.Parse(priceBtcSell_hitbtc_Emc.Text);
+
+            if (priceAlertBuyLive > priceAlertSellHit)
+            {
+                result = (priceAlertBuyLive / priceAlertSellHit - 1f) * 100f;
+                if (toastCheck_EMC.IsChecked == true && result > 9f)
+                    toastCheck_EMC.IsChecked = false;
+                if (toastCheck_EMC.IsChecked == false)
+                    PriceAlertsHit(result);
+            }
+            if (priceAlertBuyHit > priceAlertSellLive)
+            {
+                result = (priceAlertBuyHit / priceAlertSellLive - 1f) * 100f;
+                if (toastCheck_EMC.IsChecked == true && result > 9f)
+                    toastCheck_EMC.IsChecked = false;
+                if (toastCheck_EMC.IsChecked == false)
+                    PriceAlertsLive(result);
+            }
+        }
+        private void PriceAlertsHit(double result)
+        {
+            messageText.Text = coin + " на HitBTC дешевле на " + result.ToString("F") + "%";
+            toastMesLine1 = "На HitBTC цена продажи " + priceAlertSellHit.ToString("F8");
+            toastMesLine2 = "На Livecoin цена покупки " + priceAlertBuyLive.ToString("F8");
+            imageName = "Resources/hitbtc.png";
+            ToastPrice();
+        }
+        private void PriceAlertsLive(double result)
+        {
+            messageText.Text = coin + " на Livecoin дешевле на " + result.ToString("F") + "%";
+            toastMesLine1 = "На Livecoin цена продажи " + priceAlertSellLive.ToString("F8");
+            toastMesLine2 = "На HitBTC цена покупки " + priceAlertBuyHit.ToString("F8");
+            imageName = "Resources/livecoin.png";
+            ToastPrice();
         }
         private void ToastPrice()
         {
-            if (toastCheck.IsChecked == false)
+            XmlDocument toastXml = ToastNotificationManager.GetTemplateContent(ToastTemplateType.ToastImageAndText04);
+            XmlNodeList stringElements = toastXml.GetElementsByTagName("text");
+
+            for (int i = 0; i < stringElements.Length; i++)
             {
-                XmlDocument toastXml = ToastNotificationManager.GetTemplateContent(ToastTemplateType.ToastImageAndText04);
-                XmlNodeList stringElements = toastXml.GetElementsByTagName("text");
-
-                for (int i = 0; i < stringElements.Length; i++)
+                if (i == 0)
                 {
-                    if (i == 0)
-                    {
-                        stringElements[i].AppendChild(toastXml.CreateTextNode(messageText.Text));
-                    }
-                    else
-                        if (i == 1)
-                    {
-                        stringElements[i].AppendChild(toastXml.CreateTextNode(toastMesLine1));
-                    }
-                    else
-                        if (i == 2)
-                        stringElements[i].AppendChild(toastXml.CreateTextNode(toastMesLine2));
+                    stringElements[i].AppendChild(toastXml.CreateTextNode(messageText.Text));
                 }
-                String imagePath = "file:///" + Path.GetFullPath(imageName);
-                XmlNodeList imageElements = toastXml.GetElementsByTagName("image");
-                imageElements[0].Attributes.GetNamedItem("src").NodeValue = imagePath;
-
-                XmlElement audio = toastXml.CreateElement("audio");
-                audio.SetAttribute("src", "ms-winsoundevent:Notification.Looping.Call2");
-                toastXml.DocumentElement.AppendChild(audio);
-
-                XmlElement actions = toastXml.CreateElement("actions");
-                toastXml.DocumentElement.AppendChild(actions);
-
-                XmlElement action = toastXml.CreateElement("action");
-                actions.AppendChild(action);
-                action.SetAttribute("content", "Показать детали");
-                action.SetAttribute("arguments", "viewdetails");
-
-                ToastNotification toast = new ToastNotification(toastXml);
-                ToastNotificationManager.CreateToastNotifier().Show(toast);
+                else
+                    if (i == 1)
+                {
+                    stringElements[i].AppendChild(toastXml.CreateTextNode(toastMesLine1));
+                }
+                else
+                    if (i == 2)
+                    stringElements[i].AppendChild(toastXml.CreateTextNode(toastMesLine2));
             }
+            String imagePath = "file:///" + Path.GetFullPath(imageName);
+            XmlNodeList imageElements = toastXml.GetElementsByTagName("image");
+            imageElements[0].Attributes.GetNamedItem("src").NodeValue = imagePath;
+
+            XmlElement audio = toastXml.CreateElement("audio");
+            audio.SetAttribute("src", "ms-winsoundevent:Notification.Looping.Call2");
+            toastXml.DocumentElement.AppendChild(audio);
+
+            XmlElement actions = toastXml.CreateElement("actions");
+            toastXml.DocumentElement.AppendChild(actions);
+
+            XmlElement action = toastXml.CreateElement("action");
+            actions.AppendChild(action);
+            action.SetAttribute("content", "Показать детали");
+            action.SetAttribute("arguments", "viewdetails");
+
+            ToastNotification toast = new ToastNotification(toastXml);
+            ToastNotificationManager.CreateToastNotifier().Show(toast);
+           
         }
 
         private void UpdateButtonClick(object sender, RoutedEventArgs e)
