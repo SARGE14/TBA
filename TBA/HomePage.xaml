@@ -8,19 +8,19 @@
     mc:Ignorable="d"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" d:DesignHeight="350" Width="900" Loaded="Page_Loaded">
     <Grid RequestedTheme="Default">
-        <Button x:Name="updateButton" Content="Обновить" Margin="14,127,0,0" VerticalAlignment="Top" Click="UpdateButtonClick" Width="88"/>
-        <Button x:Name="calculateButton" Content="Посчитать" Margin="14,173,0,0" VerticalAlignment="Top" Click="CalculateButtonClick" Width="88"/>
-        <TextBox x:Name="priceBtc" HorizontalAlignment="Left" Margin="13,30,0,0" Text="10000" TextWrapping="Wrap" VerticalAlignment="Top" Width="80"/>
-        <TextBox x:Name="priceEth" HorizontalAlignment="Left" Margin="13,85,0,0" Text="300" TextWrapping="Wrap" VerticalAlignment="Top" Width="80"/>
+        <Button x:Name="updateButton" Content="Обновить" Margin="14,174,0,0" VerticalAlignment="Top" Click="UpdateButtonClick" Width="88"/>
+        <Button x:Name="calculateButton" Content="Посчитать" Margin="14,220,0,0" VerticalAlignment="Top" Click="CalculateButtonClick" Width="88"/>
+        <TextBox x:Name="priceBtc" HorizontalAlignment="Left" Margin="13,45,0,0" Text="10000" TextWrapping="Wrap" VerticalAlignment="Top" Width="80"/>
+        <TextBox x:Name="priceEth" HorizontalAlignment="Left" Margin="13,108,0,0" Text="300" TextWrapping="Wrap" VerticalAlignment="Top" Width="80"/>
         <TextBox x:Name="priceBtcSell" HorizontalAlignment="Left" Margin="118,112,0,0" Text="0,00014333" TextWrapping="Wrap" VerticalAlignment="Top" Width="92"/>
         <TextBox x:Name="priceEthSell" HorizontalAlignment="Left" Margin="118,174,0,0" Text="0,009" TextWrapping="Wrap" VerticalAlignment="Top" Width="92"/>
         <TextBox x:Name="priceUsdSell" HorizontalAlignment="Left" Margin="117,236,0,0" Text="1,5" TextWrapping="Wrap" VerticalAlignment="Top" Width="92"/>
         <TextBox x:Name="priceBtcBuy" HorizontalAlignment="Left" Margin="248,112,0,0" Text="0,00014111" TextWrapping="Wrap" VerticalAlignment="Top" Width="92"/>
         <TextBox x:Name="priceEthBuy" HorizontalAlignment="Left" Margin="248,174,0,0" Text="0,008" TextWrapping="Wrap" VerticalAlignment="Top" Width="92"/>
         <TextBox x:Name="priceUsdBuy" HorizontalAlignment="Left" Margin="247,236,0,0" Text="1,4" TextWrapping="Wrap" VerticalAlignment="Top" Width="92"/>
-        <TextBlock HorizontalAlignment="Left" Margin="14,9,0,0"   TextWrapping="Wrap" VerticalAlignment="Top" FontSize="12" Text="Цена в BTC" />
+        <TextBlock HorizontalAlignment="Left" Margin="14,24,0,0"   TextWrapping="Wrap" VerticalAlignment="Top" FontSize="12" Text="Цена в BTC" />
         <TextBlock HorizontalAlignment="Left" Margin="248,93,0,0"  TextWrapping="Wrap" VerticalAlignment="Top" FontSize="12" Text="Цена в BTC"/>
-        <TextBlock HorizontalAlignment="Left" Margin="14,66,0,0"   TextWrapping="Wrap" VerticalAlignment="Top" FontSize="12" Text="Цена в ETH"/>
+        <TextBlock HorizontalAlignment="Left" Margin="14,89,0,0"   TextWrapping="Wrap" VerticalAlignment="Top" FontSize="12" Text="Цена в ETH"/>
         <TextBlock HorizontalAlignment="Left" Margin="118,93,0,0"  TextWrapping="Wrap" VerticalAlignment="Top" FontSize="12" Text="Цена в BTC"/>
         <TextBlock HorizontalAlignment="Left" Margin="118,155,0,0" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="12" Text="Цена в ETH"/>
         <TextBlock HorizontalAlignment="Left" Margin="248,155,0,0" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="12" Text="Цена в ETH"/>
@@ -54,7 +54,7 @@
         <TextBlock HorizontalAlignment="Left" Margin="740,14,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="20" Width="107" FontSize="12" Text="Время обновления"/>
         <TextBox x:Name="timeUpdate" HorizontalAlignment="Left" Margin="845,7,0,0" Text="15" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="12" Height="30" Width="35"/>
         <TextBlock x:Name="messageText" HorizontalAlignment="Left" Margin="290,12,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Text="Маржа между биржами" />
-        <CheckBox x:Name="toastCheck" Content="Отключить PLBT уведомления" Margin="14,214,0,0" FontSize="10" AutomationProperties.HelpText="" VerticalAlignment="Top" Width="100"/>
+        <CheckBox x:Name="toastCheck" Content="Отключить PLBT уведомления" Margin="14,261,0,0" FontSize="10" AutomationProperties.HelpText="" VerticalAlignment="Top" Width="100"/>
         <TextBlock x:Name="errorText" HorizontalAlignment="Right" Margin="0,331,11,0" TextWrapping="Wrap" VerticalAlignment="Top" Text="Error"/>
         <TextBox x:Name="priceEthSell_yobit" HorizontalAlignment="Left" Margin="375,174,0,0" Text="0,00014333" TextWrapping="Wrap" VerticalAlignment="Top" Width="92"/>
         <TextBox x:Name="priceEthBuy_yobit"  HorizontalAlignment="Left" Margin="505,173,0,0" Text="0,00014111" TextWrapping="Wrap" VerticalAlignment="Top" Width="92"/>
@@ -80,13 +80,12 @@
         <TextBlock HorizontalAlignment="Left" Margin="117,277,0,0"  TextWrapping="Wrap" VerticalAlignment="Top" FontSize="12" Text="Цена в BTC"/>
         <TextBlock HorizontalAlignment="Left" Margin="207,272,0,0" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="16" FontWeight="Bold" Text="EMC" Opacity="0.85"/>
         <TextBlock HorizontalAlignment="Left" Margin="723,271,0,0" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="16" FontWeight="Bold" Text="EMC" Opacity="0.85"/>
-        <CheckBox x:Name="toastCheck_EMC" Content="Отключить EMC уведомления" Margin="14,250,0,0" FontSize="10" AutomationProperties.HelpText="" VerticalAlignment="Top" Width="100"/>
+        <CheckBox x:Name="toastCheck_EMC" Content="Отключить EMC уведомления" Margin="14,297,0,0" FontSize="10" AutomationProperties.HelpText="" VerticalAlignment="Top" Width="100"/>
         <TextBox x:Name="priceEthSell_hitbtc" HorizontalAlignment="Left" Margin="633,174,0,0" Text="0,00014333" TextWrapping="Wrap" VerticalAlignment="Top" Width="92"/>
         <TextBox x:Name="priceEthBuy_hitbtc"  HorizontalAlignment="Left" Margin="763,173,0,0" Text="0,00014111" TextWrapping="Wrap" VerticalAlignment="Top" Width="92"/>
         <TextBlock HorizontalAlignment="Left" Margin="763,153,0,0" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="12" Text="Цена в ETH"/>
         <TextBlock HorizontalAlignment="Left" Margin="633,155,0,0" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="12" Text="Цена в ETH"/>
         <TextBlock x:Name="labelEthUsdBuy_hitbtc"  HorizontalAlignment="Left" Margin="828,150,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Text="1,45 USD"/>
         <TextBlock x:Name="labelEthUsdSell_hitbtc" HorizontalAlignment="Left" Margin="699,151,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Text="1,55 USD"/>
-        <CheckBox x:Name="toastCheck_Time_Not" Content="Уменьшить время уведомлений" Margin="13,285,0,0" FontSize="9" AutomationProperties.HelpText="" VerticalAlignment="Top" Width="100" Visibility="Visible"/>
     </Grid>
 </Page>

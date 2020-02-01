@@ -385,17 +385,16 @@ namespace TBA
                     PriceUpDown();
                     priceRurBuy_yobit.Text = newPrice.ToString("F");
                     secondUp = true;
-                    toastCheck_Time_Not.IsChecked = secondUp;
                 }
                 else
                 {
                     secondUp = false;
-                    toastCheck_Time_Not.IsChecked = secondUp;
                 }
-                PriceAlert();
-                PriceCount();
-                firstUpDown = false;
             }
+
+            PriceAlert();
+            PriceCount();
+            firstUpDown = false;
         }
         private void PriceUpDown()
         {
