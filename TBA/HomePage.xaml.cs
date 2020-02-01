@@ -399,11 +399,12 @@ namespace TBA
         private void PriceUpDown()
         {
             double calcPriceUp;
-            double calcPriceDown;
-            calcPriceUp = newPrice / oldPrice;
-            calcPriceDown = oldPrice / newPrice;
+            double calcPriceDown; 
             if (!firstUpDown)
             {
+                calcPriceUp = newPrice / oldPrice;
+                calcPriceDown = oldPrice / newPrice;
+            
                 if (percentUpDown < calcPriceUp)
                 {
                     /// цена вверх
