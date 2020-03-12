@@ -44,6 +44,8 @@ namespace TBA
         public float priceAlertSellHit;
         public float priceAlertSellLive;
         public float priceAlertBuyHit;
+        public TextBox textBox;
+        public bool usd;
         RootObject json;
         public class RootObject
         {
@@ -142,6 +144,57 @@ namespace TBA
             AdventureTimer().Start();
 
         }
+        private void PriceSell()
+        {
+            priceBidAsk = "продажи";
+            PriceBuySell();
+        }
+        private void PriceBuy()
+        {
+            priceBidAsk = "покупки";
+            PriceBuySell();
+
+        }
+        private void PriceBuySell()
+        {
+            oldPrice = double.Parse(textBox.Text);
+            if (oldPrice != newPrice)
+            {
+                switch (currencyPair)
+                {
+                    case "PLBTBTC":
+                        alertPair = "PLBT/BTC";
+                        break;
+                    case "PLBTETH":
+                        alertPair = "PLBT/ETH";
+                        break;
+                    case "EMCBTC":
+                        alertPair = "EMC/BTC";
+                        break;
+                    case "plbt_btc/ticker":
+                        alertPair = "PLBT/BTC";
+                        break;
+                    case "plbt_eth/ticker":
+                        alertPair = "PLBT/ETH";
+                        break;
+                    case "plbt_usd/ticker":
+                        alertPair = "PLBT/USD";
+                        break;
+                    case "plbt_rur/ticker":
+                        alertPair = "PLBT/RUR";
+                        break;
+                    default:
+                        alertPair = currencyPair;
+                        break;
+                }
+             PriceUpDown();
+             if (!usd)
+                textBox.Text = newPrice.ToString("F8");
+             else
+                textBox.Text = newPrice.ToString("F");
+            }
+            usd = false;
+        }
         private void PriceGet()
         {
             string urlExchange;
@@ -160,38 +213,32 @@ namespace TBA
                     url = urlExchange + currencyPair;
                     WebTest();
 
-                    oldPrice = double.Parse(priceBtc.Text);
+                    usd = true;
+                    textBox = priceBtc;
                     newPrice = json.best_ask;
-                    PriceUpDown();
-                    priceBtc.Text = newPrice.ToString("F");
-
+                    PriceSell();
 
                     currencyPair = "ETH/USD";
                     url = urlExchange + currencyPair;
                     WebTest();
 
-                    oldPrice = double.Parse(priceEth.Text);
+                    usd = true;
+                    textBox = priceEth;
                     newPrice = json.best_ask;
-                    PriceUpDown();
-                    priceEth.Text = newPrice.ToString("F");
+                    PriceSell();
                 }
 
                 currencyPair = "PLBT/BTC";
                 url = urlExchange + currencyPair;
                 WebTest();
-                
-                priceBidAsk = "продажи";
-                alertPair = currencyPair;
-                oldPrice = double.Parse(priceBtcSell.Text);
+
+                textBox = priceBtcSell;
                 newPrice = json.best_ask;
-                PriceUpDown();
-                priceBtcSell.Text = newPrice.ToString("F8");
-                
-                priceBidAsk = "покупки";
-                oldPrice = double.Parse(priceBtcBuy.Text);
+                PriceSell();
+
+                textBox = priceBtcBuy;
                 newPrice = json.best_bid;
-                PriceUpDown();
-                priceBtcBuy.Text = newPrice.ToString("F8");
+                PriceBuy();
 
                 if (!secondUp)
                 {
@@ -199,54 +246,41 @@ namespace TBA
                     url = urlExchange + currencyPair;
                     WebTest();
 
-                    priceBidAsk = "продажи";
-                    alertPair = currencyPair;
-                    oldPrice = double.Parse(priceEthSell.Text);
+                    textBox = priceEthSell;
                     newPrice = json.best_ask;
-                    PriceUpDown();
-                    priceEthSell.Text = newPrice.ToString("F8");
+                    PriceSell();
+                //    priceEthSell.Text = newPrice.ToString("F8");
 
-                    priceBidAsk = "покупки";
-                    oldPrice = double.Parse(priceEthBuy.Text);
+                    textBox = priceEthBuy;
                     newPrice = json.best_bid;
-                    PriceUpDown();
-                    priceEthBuy.Text = newPrice.ToString("F8");
+                    PriceBuy();
 
                     currencyPair = "PLBT/USD";
                     url = urlExchange + currencyPair;
                     WebTest();
 
-                    priceBidAsk = "продажи";
-                    alertPair = currencyPair;
-                    oldPrice = double.Parse(priceUsdSell.Text);
-                    newPrice = json.best_ask;
-                    PriceUpDown();
-                    priceUsdSell.Text = newPrice.ToString("F");
+                    usd = true;
+                    textBox = priceUsdSell;
+                    newPrice = Math.Round(json.best_ask, 2);
+                    PriceSell();
 
-
-                    priceBidAsk = "покупки";
-                    oldPrice = double.Parse(priceUsdBuy.Text);
+                    usd = true;
+                    textBox = priceUsdBuy;
                     newPrice = json.best_bid;
-                    PriceUpDown();
-                    priceUsdBuy.Text = newPrice.ToString("F");
+                    PriceBuy();
                 }
 
                 currencyPair = "EMC/BTC";
                 url = urlExchange + currencyPair;
                 WebTest();
 
-                priceBidAsk = "продажи";
-                alertPair = currencyPair;
-                oldPrice = double.Parse(priceBtcSell_Emc.Text);
+                textBox = priceBtcSell_Emc;
                 newPrice = json.best_ask;
-                PriceUpDown();
-                priceBtcSell_Emc.Text = newPrice.ToString("F8");
+                PriceSell();
 
-                priceBidAsk = "покупки";
-                oldPrice = double.Parse(priceBtcBuy_Emc.Text);
+                textBox = priceBtcBuy_Emc;
                 newPrice = json.best_bid;
-                PriceUpDown();
-                priceBtcBuy_Emc.Text = newPrice.ToString("F8");
+                PriceBuy();
             }
             /*HitBTC*/
             exchange = "HitBTC";
@@ -256,18 +290,13 @@ namespace TBA
             WebTest();
             if (errorExh != "HitBTC" && json != null)
             {
-                alertPair = "PLBT/BTC";
-                priceBidAsk = "продажи";
-                oldPrice = double.Parse(priceBtcSell_hitbtc.Text);
+                textBox = priceBtcSell_hitbtc;
                 newPrice = json.ask;
-                PriceUpDown();
-                priceBtcSell_hitbtc.Text = newPrice.ToString("F8");
-               
-                priceBidAsk = "покупки";
-                oldPrice = double.Parse(priceBtcBuy_hitbtc.Text);
+                PriceSell();
+
+                textBox = priceBtcBuy_hitbtc;
                 newPrice = json.bid;
-                PriceUpDown();
-                priceBtcBuy_hitbtc.Text = newPrice.ToString("F8");
+                PriceBuy();
 
                 /*HitBTC ETH*/
                 if (!secondUp)
@@ -276,18 +305,13 @@ namespace TBA
                     url = urlExchange + currencyPair;
                     WebTest();
 
-                    alertPair = "PLBT/ETH";
-                    priceBidAsk = "продажи";
-                    oldPrice = double.Parse(priceEthSell_hitbtc.Text);
+                    textBox = priceEthSell_hitbtc;
                     newPrice = json.ask;
-                    PriceUpDown();
-                    priceEthSell_hitbtc.Text = newPrice.ToString("F8");
+                    PriceSell();
 
-                    priceBidAsk = "покупки";
-                    oldPrice = double.Parse(priceEthBuy_hitbtc.Text);
+                    textBox = priceEthBuy_hitbtc;
                     newPrice = json.bid;
-                    PriceUpDown();
-                    priceEthBuy_hitbtc.Text = newPrice.ToString("F8");
+                    PriceBuy();
                 }
 
                 /*HitBTC EMC*/
@@ -295,18 +319,13 @@ namespace TBA
                 url = urlExchange + currencyPair;
                 WebTest();
 
-                priceBidAsk = "продажи";
-                alertPair = "EMC/BTC";
-                oldPrice = double.Parse(priceBtcSell_hitbtc_Emc.Text);
+                textBox = priceBtcSell_hitbtc_Emc;
                 newPrice = json.ask;
-                PriceUpDown();
-                priceBtcSell_hitbtc_Emc.Text = newPrice.ToString("F8");
+                PriceSell();
 
-                priceBidAsk = "покупки";
-                oldPrice = double.Parse(priceBtcBuy_hitbtc_Emc.Text);
+                textBox = priceBtcBuy_hitbtc_Emc;
                 newPrice = json.bid;
-                PriceUpDown();
-                priceBtcBuy_hitbtc_Emc.Text = newPrice.ToString("F8");
+                PriceBuy();
             }
 
             /*YoBit*/
@@ -317,73 +336,56 @@ namespace TBA
             WebTest();
             if (errorExh != "YoBit" && json != null)
             {
-                oldPrice = double.Parse(priceBtcSell_yobit.Text);
+                textBox = priceBtcSell_yobit;
                 newPrice = json.ticker.Sell;
+                PriceSell();
 
-                alertPair = "PLBT/BTC";
-                priceBidAsk = "продажи";
-                PriceUpDown();
-                priceBtcSell_yobit.Text = newPrice.ToString("F8");
-                oldPrice = double.Parse(priceBtcBuy_yobit.Text);
+                textBox = priceBtcBuy_yobit;
                 newPrice = json.ticker.Buy;
+                PriceBuy();
 
-                priceBidAsk = "покупки";
-                PriceUpDown();
-                priceBtcBuy_yobit.Text = newPrice.ToString("F8");
                 if (!secondUp)
                 {
                     currencyPair = "plbt_eth/ticker";
                     url = urlExchange + currencyPair;
                     WebTest();
 
-                    alertPair = "PLBT/ETH";
-                    priceBidAsk = "продажи";
-                    oldPrice = double.Parse(priceEthSell_yobit.Text);
+                    textBox = priceEthSell_yobit;
                     newPrice = json.ticker.Sell;
-                    PriceUpDown();
-                    priceEthSell_yobit.Text = newPrice.ToString("F8");
+                    PriceSell();
 
-                    priceBidAsk = "покупки";
-                    oldPrice = double.Parse(priceEthBuy_yobit.Text);
+                    textBox = priceEthBuy_yobit;
                     newPrice = json.ticker.Buy;
-                    PriceUpDown();
-                    priceEthBuy_yobit.Text = newPrice.ToString("F8");
+                    PriceBuy();
 
                     currencyPair = "plbt_usd/ticker";
                     url = urlExchange + currencyPair;
                     WebTest();
 
-                    alertPair = "PLBT/USD";
-                    priceBidAsk = "продажи";
-                    oldPrice = double.Parse(priceUsdSell_yobit.Text);
+                    usd = true;
+                    textBox = priceUsdSell_yobit;
                     newPrice = json.ticker.Sell;
-                    PriceUpDown();
-                    priceUsdSell_yobit.Text = newPrice.ToString("F");
+                    PriceSell();
 
 
-                    priceBidAsk = "покупки";
-                    oldPrice = double.Parse(priceUsdBuy_yobit.Text);
+                    usd = true;
+                    textBox = priceUsdBuy_yobit;
                     newPrice = json.ticker.Buy;
-                    PriceUpDown();
-                    priceUsdBuy_yobit.Text = newPrice.ToString("F");
+                    PriceBuy();
 
                     currencyPair = "plbt_rur/ticker";
                     url = urlExchange + currencyPair;
                     WebTest();
 
-                    alertPair = "PLBT/RUR";
-                    priceBidAsk = "продажи";
-                    oldPrice = double.Parse(priceRurSell_yobit.Text);
+                    usd = true;
+                    textBox = priceRurSell_yobit;
                     newPrice = json.ticker.Sell;
-                    PriceUpDown();
-                    priceRurSell_yobit.Text = newPrice.ToString("F");
+                    PriceSell();
 
-
-                    priceBidAsk = "покупки";
-                    oldPrice = double.Parse(priceRurBuy_yobit.Text);
+                    usd = true;
+                    textBox = priceRurBuy_yobit;
                     newPrice = json.ticker.Buy;
-                    PriceUpDown();
-                    priceRurBuy_yobit.Text = newPrice.ToString("F");
+                    PriceBuy();
                     secondUp = true;
                 }
                 else
