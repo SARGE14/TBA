@@ -9,7 +9,7 @@
   <Identity
     Name="db94a2a9-14a5-4370-9c73-59859bccf085"
     Publisher="CN=SARGE"
-    Version="0.3.4.0" />
+    Version="0.4.1.0" />
 
   <mp:PhoneIdentity PhoneProductId="db94a2a9-14a5-4370-9c73-59859bccf085" PhonePublisherId="00000000-0000-0000-0000-000000000000"/>
 
