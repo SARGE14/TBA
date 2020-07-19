@@ -6,15 +6,103 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"
-    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" d:DesignHeight="350" Width="1100">
-    <Grid>
-        <NavigationView x:Name="navMenu"  ItemInvoked="navMenu_ItemInvoked" Loaded="NavMenu_Loaded" IsBackButtonVisible="Collapsed"  IsSettingsVisible="True" Margin="0,0,150,0">
-            <NavigationView.MenuItems>
-                <NavigationViewItem Icon="Home" Content="Главная" Tag="HomePage"/>
-                <NavigationViewItem  Icon="Manage" Content="Портфель" Tag="PortfolioPage"/>
-            </NavigationView.MenuItems>
-            <Frame x:Name="contentFrame"/>
-        </NavigationView>
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" d:DesignHeight="380" Width="990" Loaded="Page_Loaded">
+    <Grid RequestedTheme="Default" HorizontalAlignment="Stretch" BorderThickness="0,0,0,0">
+        <Button x:Name="updateButton" Content="Обновить" Margin="13,223,0,0" VerticalAlignment="Top" Click="UpdateButtonClick" Width="88"/>
+        <Button x:Name="calculateButton" Content="Посчитать" Margin="119,223,0,0" VerticalAlignment="Top" Click="CalculateButtonClick" Width="88"/>
+        <TextBox x:Name="priceBtc" HorizontalAlignment="Left" Margin="13,45,0,0" Text="10000" TextWrapping="Wrap" VerticalAlignment="Top" Width="80"/>
+        <TextBox x:Name="priceBtcSell_livecoin" HorizontalAlignment="Left" Margin="13,108,0,0" Text="9999" TextWrapping="Wrap" VerticalAlignment="Top" Width="80"/>
+        <TextBox x:Name="priceBtcSell" HorizontalAlignment="Left" Margin="219,104,0,0" Text="0,00014333" TextWrapping="Wrap" VerticalAlignment="Top" Width="92"/>
+        <TextBox x:Name="priceEthSell" HorizontalAlignment="Left" Margin="219,166,0,0" Text="0,009" TextWrapping="Wrap" VerticalAlignment="Top" Width="92"/>
+        <TextBox x:Name="priceUsdSell" HorizontalAlignment="Left" Margin="218,228,0,0" Text="1,5" TextWrapping="Wrap" VerticalAlignment="Top" Width="92"/>
+        <TextBox x:Name="priceBtcBuy" HorizontalAlignment="Left" Margin="349,104,0,0" Text="0,00014111" TextWrapping="Wrap" VerticalAlignment="Top" Width="92"/>
+        <TextBox x:Name="priceEthBuy" HorizontalAlignment="Left" Margin="349,166,0,0" Text="0,008" TextWrapping="Wrap" VerticalAlignment="Top" Width="92"/>
+        <TextBox x:Name="priceUsdBuy" HorizontalAlignment="Left" Margin="348,228,0,0" Text="1,4" TextWrapping="Wrap" VerticalAlignment="Top" Width="92"/>
+        <TextBlock HorizontalAlignment="Left" Margin="14,24,0,0"   TextWrapping="Wrap" VerticalAlignment="Top" FontSize="12" Text="Цена BTC" />
+        <TextBlock HorizontalAlignment="Left" Margin="349,85,0,0"  TextWrapping="Wrap" VerticalAlignment="Top" FontSize="12" Text="Цена в BTC"/>
+        <TextBlock HorizontalAlignment="Left" Margin="14,89,0,0"   TextWrapping="Wrap" VerticalAlignment="Top" FontSize="12" Text="Продажа" Width="76"/>
+        <TextBlock HorizontalAlignment="Left" Margin="219,85,0,0"  TextWrapping="Wrap" VerticalAlignment="Top" FontSize="12" Text="Цена в BTC"/>
+        <TextBlock HorizontalAlignment="Left" Margin="219,147,0,0" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="12" Text="Цена в ETH"/>
+        <TextBlock HorizontalAlignment="Left" Margin="349,147,0,0" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="12" Text="Цена в ETH"/>
+        <TextBlock HorizontalAlignment="Left" Margin="218,207,0,0" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="12" Text="Цена в USD"/>
+        <TextBlock HorizontalAlignment="Left" Margin="348,207,0,0" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="12" Text="Цена в USD"/>
+        <TextBlock HorizontalAlignment="Left" Margin="299,33,0,0" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="16" FontWeight="Bold" Text="Livecoin" Opacity="0.85"/>
+        <TextBlock x:Name="labelEthUsdBuy"  HorizontalAlignment="Left" Margin="415,143,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Text="1,45 USD"/>
+        <TextBlock x:Name="labelBtcUsdBuy"  HorizontalAlignment="Left" Margin="415,82,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Text="1,45 USD"/>
+        <TextBlock x:Name="labelBtcUsdSell" HorizontalAlignment="Left" Margin="285,82,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Text="1,55 USD"/>
+        <TextBlock x:Name="labelEthUsdSell" HorizontalAlignment="Left" Margin="285,143,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Text="1,55 USD"/>
+        <TextBlock HorizontalAlignment="Left" Margin="225,59,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Text="Продажа" FontSize="16" Opacity="0.85"/>
+        <TextBlock HorizontalAlignment="Left" Margin="358,59,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Text="Покупка" FontSize="16" Opacity="0.85"/>
+        <TextBox x:Name="priceBtcSell_hitbtc" HorizontalAlignment="Left" Margin="733,104,0,0" Text="0,00014333" TextWrapping="Wrap" VerticalAlignment="Top" Width="92"/>
+        <TextBox x:Name="priceBtcBuy_hitbtc"  HorizontalAlignment="Left" Margin="864,104,0,0" Text="0,00014111" TextWrapping="Wrap" VerticalAlignment="Top" Width="92"/>
+        <TextBlock HorizontalAlignment="Left" Margin="864,85,0,0" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="12" Text="Цена в BTC"/>
+        <TextBlock HorizontalAlignment="Left" Margin="733,85,0,0" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="12" Text="Цена в BTC"/>
+        <TextBlock HorizontalAlignment="Left" Margin="815,33,0,0" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="16" FontWeight="Bold" Text="HitBTC" Opacity="0.85" RequestedTheme="Default"/>
+        <TextBlock x:Name="labelBtcUsdBuy_hitbtc"  HorizontalAlignment="Left" Margin="929,82,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Text="1,45 USD" FontFamily="Segoe UI"/>
+        <TextBlock x:Name="labelBtcUsdSell_hitbtc" HorizontalAlignment="Left" Margin="802,82,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Text="1,55 USD"/>
+        <TextBlock HorizontalAlignment="Left" Margin="739,59,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Text="Продажа" FontSize="16" Opacity="0.85"/>
+        <TextBlock HorizontalAlignment="Left" Margin="872,59,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Text="Покупка" FontSize="16" Opacity="0.85"/>
+        <TextBox x:Name="priceBtcSell_yobit" HorizontalAlignment="Left" Margin="476,104,0,0" Text="0,00014333" TextWrapping="Wrap" VerticalAlignment="Top" Width="92"/>
+        <TextBox x:Name="priceBtcBuy_yobit"  HorizontalAlignment="Left" Margin="606,103,0,0" Text="0,00014111" TextWrapping="Wrap" VerticalAlignment="Top" Width="92"/>
+        <TextBlock HorizontalAlignment="Left" Margin="606,84,0,0" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="12" Text="Цена в BTC"/>
+        <TextBlock HorizontalAlignment="Left" Margin="476,85,0,0" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="12" Text="Цена в BTC" FontFamily="Segoe UI"/>
+        <TextBlock HorizontalAlignment="Left" Margin="584,33,0,0" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="16" FontWeight="Bold" Text="YoBit" Opacity="0.85"/>
+        <TextBlock x:Name="labelBtcUsdBuy_yobit"  HorizontalAlignment="Left" Margin="671,81,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Text="1,45 USD"/>
+        <TextBlock x:Name="labelBtcUsdSell_yobit" HorizontalAlignment="Left" Margin="542,82,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Text="1,55 USD"/>
+        <TextBlock HorizontalAlignment="Left" Margin="482,59,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Text="Продажа" FontSize="16" FontFamily="Segoe UI" Opacity="0.85"/>
+        <TextBlock HorizontalAlignment="Left" Margin="615,58,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Text="Покупка" FontSize="16" Opacity="0.85"/>
+        <TextBlock HorizontalAlignment="Left" Margin="841,6,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="20" Width="107" FontSize="12" Text="Время обновления"/>
+        <TextBox x:Name="timeUpdate" HorizontalAlignment="Left" Margin="946,-1,0,0" Text="15" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="14" Height="30" Width="35" RequestedTheme="Default"/>
+        <TextBlock x:Name="messageText" HorizontalAlignment="Left" Margin="348,4,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Text="Маржа между биржами" />
+        <CheckBox x:Name="toastCheck" Content="Отключить PLBT уведомления" Margin="10,260,0,0" FontSize="10" AutomationProperties.HelpText="" VerticalAlignment="Top" Width="100"/>
+        <TextBlock x:Name="errorText" HorizontalAlignment="Right" Margin="0,326,5,0" TextWrapping="Wrap" VerticalAlignment="Top" Text="Error"/>
+        <TextBox x:Name="priceEthSell_yobit" HorizontalAlignment="Left" Margin="476,166,0,0" Text="0,00014333" TextWrapping="Wrap" VerticalAlignment="Top" Width="92"/>
+        <TextBox x:Name="priceEthBuy_yobit"  HorizontalAlignment="Left" Margin="606,165,0,0" Text="0,00014111" TextWrapping="Wrap" VerticalAlignment="Top" Width="92"/>
+        <TextBlock HorizontalAlignment="Left" Margin="606,145,0,0" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="12" Text="Цена в ETH"/>
+        <TextBlock HorizontalAlignment="Left" Margin="476,147,0,0" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="12" Text="Цена в ETH"/>
+        <TextBlock x:Name="labelEthUsdBuy_yobit"  HorizontalAlignment="Left" Margin="671,142,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Text="1,45 USD"/>
+        <TextBlock x:Name="labelEthUsdSell_yobit" HorizontalAlignment="Left" Margin="542,143,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Text="1,55 USD"/>
+        <TextBox x:Name="priceUsdSell_yobit" HorizontalAlignment="Left" Margin="476,228,0,0" Text="0,00014333" TextWrapping="Wrap" VerticalAlignment="Top" Width="92"/>
+        <TextBox x:Name="priceUsdBuy_yobit"  HorizontalAlignment="Left" Margin="606,227,0,0" Text="0,00014111" TextWrapping="Wrap" VerticalAlignment="Top" Width="92"/>
+        <TextBlock HorizontalAlignment="Left" Margin="606,206,0,0" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="12" Text="Цена в USD"/>
+        <TextBlock HorizontalAlignment="Left" Margin="476,207,0,0" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="12" Text="Цена в USD"/>
+        <TextBox x:Name="priceRurSell_yobit" HorizontalAlignment="Left" Margin="476,290,0,0" Text="0,00014333" TextWrapping="Wrap" VerticalAlignment="Top" Width="92"/>
+        <TextBox x:Name="priceRurBuy_yobit"  HorizontalAlignment="Left" Margin="606,289,0,0" Text="0,00014111" TextWrapping="Wrap" VerticalAlignment="Top" Width="92"/>
+        <TextBlock HorizontalAlignment="Left" Margin="606,268,0,0" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="12" Text="Цена в RUR"/>
+        <TextBlock HorizontalAlignment="Left" Margin="476,269,0,0" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="12" Text="Цена в RUR"/>
+        <TextBox x:Name="priceBtcSell_hitbtc_Emc" HorizontalAlignment="Left" Margin="732,291,0,0" Text="0,00001433" TextWrapping="Wrap" VerticalAlignment="Top" Width="92"/>
+        <TextBox x:Name="priceBtcBuy_hitbtc_Emc"  HorizontalAlignment="Left" Margin="863,291,0,0" Text="0,00001411" TextWrapping="Wrap" VerticalAlignment="Top" Width="92"/>
+        <TextBlock HorizontalAlignment="Left" Margin="863,270,0,0" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="12" Text="Цена в BTC"/>
+        <TextBlock HorizontalAlignment="Left" Margin="732,270,0,0" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="12" Text="Цена в BTC"/>
+        <TextBox x:Name="priceBtcSell_Emc" HorizontalAlignment="Left" Margin="218,291,0,0" Text="0,00001433" TextWrapping="Wrap" VerticalAlignment="Top" Width="92"/>
+        <TextBox x:Name="priceBtcBuy_Emc" HorizontalAlignment="Left" Margin="349,291,0,0" Text="0,00001411" TextWrapping="Wrap" VerticalAlignment="Top" Width="92"/>
+        <TextBlock HorizontalAlignment="Left" Margin="349,269,0,0"  TextWrapping="Wrap" VerticalAlignment="Top" FontSize="12" Text="Цена в BTC"/>
+        <TextBlock HorizontalAlignment="Left" Margin="218,269,0,0"  TextWrapping="Wrap" VerticalAlignment="Top" FontSize="12" Text="Цена в BTC"/>
+        <TextBlock HorizontalAlignment="Left" Margin="308,264,0,0" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="16" FontWeight="Bold" Text="EMC" Opacity="0.85"/>
+        <TextBlock HorizontalAlignment="Left" Margin="824,263,0,0" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="16" FontWeight="Bold" Text="EMC" Opacity="0.85"/>
+        <CheckBox x:Name="toastCheck_EMC" Content="Отключить EMC уведомления" Margin="10,305,0,0" FontSize="10" AutomationProperties.HelpText="" VerticalAlignment="Top" Width="100"/>
+        <TextBox x:Name="priceEthSell_hitbtc" HorizontalAlignment="Left" Margin="734,166,0,0" Text="0,00014333" TextWrapping="Wrap" VerticalAlignment="Top" Width="92"/>
+        <TextBox x:Name="priceEthBuy_hitbtc"  HorizontalAlignment="Left" Margin="864,165,0,0" Text="0,00014111" TextWrapping="Wrap" VerticalAlignment="Top" Width="92"/>
+        <TextBlock HorizontalAlignment="Left" Margin="864,145,0,0" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="12" Text="Цена в ETH"/>
+        <TextBlock HorizontalAlignment="Left" Margin="734,147,0,0" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="12" Text="Цена в ETH"/>
+        <TextBlock x:Name="labelEthUsdBuy_hitbtc"  HorizontalAlignment="Left" Margin="929,142,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Text="1,45 USD"/>
+        <TextBlock x:Name="labelEthUsdSell_hitbtc" HorizontalAlignment="Left" Margin="800,143,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Text="1,55 USD"/>
+        <TextBox x:Name="textPLBT" HorizontalAlignment="Left" Margin="120,264,0,0" Text="3,50" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="14" Height="30" Width="51" FontWeight="Normal" Grid.Row="0"/>
+        <TextBox x:Name="textEMC" HorizontalAlignment="Left" Margin="120,307,0,0" Text="9,00" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="14" Height="30" Width="51"/>
+        <TextBox x:Name="priceBtcSell_binance" HorizontalAlignment="Left" Margin="17,185,0,0" Text="10000" TextWrapping="Wrap" VerticalAlignment="Top" Width="80"/>
+        <TextBox x:Name="priceBtcBuy_binance" HorizontalAlignment="Left" Margin="123,185,0,0" Text="300" TextWrapping="Wrap" VerticalAlignment="Top" Width="80"/>
+        <TextBlock HorizontalAlignment="Left" Margin="18,164,0,0"   TextWrapping="Wrap" VerticalAlignment="Top" FontSize="12" Text="Продажа" />
+        <TextBlock HorizontalAlignment="Left" Margin="124,164,0,0"   TextWrapping="Wrap" VerticalAlignment="Top" FontSize="12" Text="Покупка"/>
+        <TextBlock HorizontalAlignment="Left" Margin="84,8,0,0"   TextWrapping="Wrap" VerticalAlignment="Top" FontSize="14" Text="Livecoin" FontWeight="Bold" />
+        <TextBlock HorizontalAlignment="Left" Margin="85,147,0,0"   TextWrapping="Wrap" VerticalAlignment="Top" FontSize="14" Text="Binance" FontWeight="Bold" />
+        <TextBox x:Name="priceEth" HorizontalAlignment="Left" Margin="123,44,0,0" Text="300" TextWrapping="Wrap" VerticalAlignment="Top" Width="80"/>
+        <TextBlock HorizontalAlignment="Left" Margin="124,25,0,0"   TextWrapping="Wrap" VerticalAlignment="Top" FontSize="12" Text="Цена ETH"/>
+        <TextBox x:Name="priceBtcBuy_livecoin" HorizontalAlignment="Left" Margin="123,110,0,0" Text="300" TextWrapping="Wrap" VerticalAlignment="Top" Width="80"/>
+        <TextBlock HorizontalAlignment="Left" Margin="124,92,0,0"   TextWrapping="Wrap" VerticalAlignment="Top" FontSize="12" Text="Покупка"/>
+        <CheckBox x:Name="toastCheck_BTC" Content="Отключить BTC уведомления" Margin="10,344,0,0" FontSize="10" AutomationProperties.HelpText="" VerticalAlignment="Top" Width="100"/>
+        <TextBox x:Name="textBTC" HorizontalAlignment="Left" Margin="119,344,0,0" Text="1,00" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="14" Height="30" Width="51"/>
+        <TextBlock HorizontalAlignment="Left" Margin="160,269,0,0"   TextWrapping="Wrap" VerticalAlignment="Top" FontSize="14" Text="%"/>
+        <TextBlock HorizontalAlignment="Left" Margin="160,313,0,0"   TextWrapping="Wrap" VerticalAlignment="Top" FontSize="14" Text="%"/>
+        <TextBlock HorizontalAlignment="Left" Margin="160,349,0,0"   TextWrapping="Wrap" VerticalAlignment="Top" FontSize="14" Text="%"/>
     </Grid>
 </Page>
-
